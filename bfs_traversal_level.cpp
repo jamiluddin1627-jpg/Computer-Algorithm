@@ -1,7 +1,7 @@
 // BFS Traversal with Level Calculation
 #include <bits/stdc++.h>
 using namespace std;
-vector<int> a[1005];
+vector<int> a[1005]; 
 bool vis[1005];
 int level[1005];
 void bfs(int src)
