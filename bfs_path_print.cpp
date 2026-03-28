@@ -40,7 +40,7 @@ int main() {
         a[v].push_back(u);
     }
     int src, des;
-    cin>>src, des;
+    cin>>src >> des;
     memset(vis, false, sizeof(vis));
     memset(level, -1 , sizeof(level));
     memset(parent, -1 , sizeof(parent));
