@@ -19,7 +19,6 @@ using namespace std;
 const int N = 1000;
 int grid[N][N];
 bool visited[N][N];
-int level[N][N];
 int n, m;
 vector<pair<int, int>> directions = {{0, 1}, {0, -1}, {-1, 0}, {1, 0}}; // Right, Left, Up, Down
 bool isValid(int x, int y)
@@ -27,12 +26,12 @@ bool isValid(int x, int y)
     return (x >= 0 && x < n && y >= 0 && y < m && grid[x][y] == 0 && !visited[x][y]);
 }
 
-void bfs(pair<int, int> src)
+int bfs(pair<int, int> src)
 {
     queue<pair<int, int>> q;
     q.push(src);
     visited[src.first][src.second] = true;
-    level[src.first][src.second] = 1; // Start level from 1 for counting rooms
+    int roomCount = 1; // Count the starting cell as a room
     while(!q.empty())
     {
         pair<int, int> cell = q.front();
@@ -45,10 +44,11 @@ void bfs(pair<int, int> src)
             {
                 visited[newX][newY] = true;
                 q.push({newX, newY});
-                level[newX][newY] = level[cell.first][cell.second] + 1;
+                roomCount++; // Increment room count for each valid adjacent cell
             }
         }
     }
+    return roomCount;
 }
 int main()
 {
@@ -64,7 +64,6 @@ int main()
         }
     }
     memset(visited, false, sizeof(visited));
-    memset(level, 0, sizeof(level));
     vector<int> apartmentSizes;
     for(int i = 0; i < n; i++)
     {
@@ -72,23 +71,22 @@ int main()
         {
             if(grid[i][j] == 0 && !visited[i][j])
             {
-                bfs({i, j});
-                int roomCount = 0;
-                for(int x = 0; x < n; x++)
-                {
-                    for(int y = 0; y < m; y++)
-                    {
-                        if(level[x][y] > 0) roomCount++;
-                    }
-                }
-                apartmentSizes.push_back(roomCount);
+                int size = bfs({i, j});
+                apartmentSizes.push_back(size);
             }
         }
     }
     sort(apartmentSizes.begin(), apartmentSizes.end());
-    for(int size : apartmentSizes)
+    if(apartmentSizes.empty())
     {
-        cout << size << " ";
+        cout << 0;
+    }
+    else
+    {
+        for(int size : apartmentSizes)
+        {
+            cout << size << " ";
+        }
     }
     return 0;
 }
