@@ -5,7 +5,7 @@ int maze[N][N];
 bool visited[N][N];
 int n, m;
 int dx[] = {0, 0, -1, 1}; // Right, Left, Up, Down
-int dy[] = {1, -1, 0, 0};//Right, Left, Up, Down
+int dy[] = {1, -1, 0, 0}; // Right, Left, Up, Down
 bool isValid(int x, int y)
 {
     return (x >= 0 && x < n && y >= 0 && y < m && maze[x][y] != -1 && !visited[x][y]);
@@ -43,10 +43,10 @@ int main()
         for(int j = 0; j < m; j++)
         {
             if(row[j] == '#') maze[i][j] = -1;
+            else maze[i][j] = 0;
             if(row[j] == 'A') src = {i, j};
             if(row[j] == 'B') dest = {i, j};
         }
-        
     }
     memset(visited, false, sizeof(visited));
     bfs(src);
@@ -55,6 +55,9 @@ int main()
         cout << "Path found!" << endl;
         return 0;
     }
-    cout << "No path found." << endl;
+    else
+    {
+        cout << "No path found." << endl;
+    }
     return 0;
 }

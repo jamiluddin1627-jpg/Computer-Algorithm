@@ -7,7 +7,7 @@ vector<pair<int, int>> directions = {{0, 1}, {0, -1}, {-1, 0}, {1, 0}}; // Right
 int n, m;
 bool isValid(int i, int j)
 {
-    return (i >= 0 && i < n && j >= 0 && j < m); // Check if the cell is within the grid boundaries
+    return (i >= 0 && i < n && j >= 0 && j < m && !vis[i][j]); // Check if the cell is within the grid boundaries
 }
 void bfs(int si, int sj)
 {
@@ -15,6 +15,7 @@ void bfs(int si, int sj)
   q.push({si, sj});
   vis[si][sj] = true;
   dis[si][sj] = 0;
+  cout<<"Processing cell: "<<endl;
   while(!q.empty())
   {
     pair<int, int> par = q.front();
@@ -24,7 +25,7 @@ void bfs(int si, int sj)
     {
         int ci = par.first + directions[i].first;
         int cj = par.second + directions[i].second;
-        if(isValid(ci, cj) && !vis[ci][cj])
+        if(isValid(ci, cj))
         {
             q.push({ci, cj});
             vis[ci][cj] = true;
