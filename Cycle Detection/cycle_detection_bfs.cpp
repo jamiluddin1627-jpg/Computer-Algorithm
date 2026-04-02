@@ -4,6 +4,7 @@ const int N = 1e5+5;
 vector<int> graph[N];
 bool visited[N];
 int parent[N];
+bool cycle;
 void bfs(int src)
 {
     queue<int> q;
@@ -28,13 +29,7 @@ void bfs(int src)
             {
                 if(parent[node] != children)
                 {
-                    cout << "Cycle detected!" << endl;
-                    return;
-                }
-                else
-                {
-                    cout << "No cycle detected!" << endl;
-                    return;
+                    cycle = true;
                 }
             }
         }
@@ -53,12 +48,21 @@ int main()
     }
     memset(visited, false, sizeof(visited));
     memset(parent, -1, sizeof(parent));
+    cycle = false;
     for(int i = 0; i < n; i++) // 0-based indexing
     {
         if(!visited[i]) 
         {
             bfs(i);
         }
+    }
+    if(cycle)
+    {
+        cout << "Cycle Detected!" << endl;
+    }
+    else
+    {
+        cout << "No Cycle Detected!" << endl;
     }
     return 0;
 }
