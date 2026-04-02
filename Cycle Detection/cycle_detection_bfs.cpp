@@ -31,6 +31,11 @@ void bfs(int src)
                     cout << "Cycle detected!" << endl;
                     return;
                 }
+                else
+                {
+                    cout << "No cycle detected!" << endl;
+                    return;
+                }
             }
         }
     }
@@ -48,9 +53,9 @@ int main()
     }
     memset(visited, false, sizeof(visited));
     memset(parent, -1, sizeof(parent));
-    for(int i=1; i<=n; i++)
+    for(int i = 0; i < n; i++) // 0-based indexing
     {
-        if(!visited[i])
+        if(!visited[i]) 
         {
             bfs(i);
         }
