@@ -1,9 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
-vector<int> a[1005];
-bool vis[1005];
-int level[1005];
-int parent[1005];
+const int N = 1e5 + 5;
+vector<int> a[N];
+bool vis[N];
+int level[N];
+int parent[N];
 void bfs(int src)
 {
     queue<int> q;
@@ -14,7 +15,7 @@ void bfs(int src)
     {
         int par = q.front();
         q.pop();
-        cout<<par<<" ";
+        //cout<<par<<" ";
         for(int child: a[par])
         {
             if(!vis[child])
@@ -27,7 +28,7 @@ void bfs(int src)
         }
         
     }
-    cout<<endl;  
+    //cout<<endl;  
 }
 int main() {
     int n, e;
@@ -45,7 +46,7 @@ int main() {
     bfs(1);
 
     int x = n; // Assuming we want to find the path to the last node
-    
+    vector<int> path;
     if(!vis[x])
     {
         cout<<"IMPOSSIBLE"<<endl;
@@ -54,9 +55,15 @@ int main() {
         cout<<level[x]<<endl; // Print the length of the path
         while(x != -1)
         {
-            cout<<x<<" "; // Print the path from destination to source
-            x = parent[x]; 
+            path.push_back(x);
+            x = parent[x];
         }
+        // Print the path in reverse order (from source to destination)
+        for(int i = path.size() - 1; i >= 0; i--)
+        {
+            cout<<path[i]<<" ";
+        }
+        cout<<endl;
     }
     return 0;
 }
