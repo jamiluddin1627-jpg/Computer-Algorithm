@@ -48,11 +48,6 @@ int main()
             break;
         }
     }
-    for(int i = 0; i < n; i++)
-    {
-        cout<<dist[i]<<" ";
-    }
-    cout<<endl;
     if(hasNegativeCycle)
     {
         cout<<"Negative Cycle Detected"<<endl;
@@ -60,6 +55,11 @@ int main()
     else
     {
         cout<<"No Negative Cycle Detected"<<endl;
+        for(int i = 0; i < n; i++)
+        {
+            cout<<dist[i]<<" ";
+        }
+        cout<<endl;
     }
     return 0;
 }

@@ -22,7 +22,8 @@ int main()
     {
         int u, v, w;
         cin>>u>>v>>w;
-        edges.push_back(Edge(u, v, w));
+        edges.push_back(Edge(u, v, w)); // directed graph
+        // edges.push_back(Edge(v, u, w)); // undirected graph
     }
     for(int i = 0; i < n; i++)
     {
