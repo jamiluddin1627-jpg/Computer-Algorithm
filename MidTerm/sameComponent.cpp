@@ -2,29 +2,26 @@
 using namespace std;
 const int N = 1000;
 int maze[N][N];
-//int distance[N][N];
 bool visited[N][N];
 int n, m;
 vector<pair<int, int>> directions = {{0, 1}, {0, -1}, {-1, 0}, {1, 0}};
 bool isValid(int i, int j)
 {
-    return(i>=0 && i<n && j>=0 && j<m && !visited[i][j] && maze[i][j]!= -1);
+    return (i>=0 && i<n && j>=0 && j<m && maze[i][j] == 0 && !visited[i][j]);
 }
 void bfs(pair<int, int> src)
 {
-    
     visited[src.first][src.second] = true;
     queue<pair<int, int>> q;
     q.push(src);
-    
     while(!q.empty())
     {
-        auto par = q.front();
+        auto node = q.front();
         q.pop();
         for(int i = 0; i<4; i++)
         {
-            int ci = par.first + directions[i].first;
-            int cj = par.second + directions[i].second;
+            int ci = node.first + directions[i].first;
+            int cj = node.second + directions[i].second;
             if(isValid(ci, cj))
             {
                 visited[ci][cj] = true;
@@ -32,24 +29,22 @@ void bfs(pair<int, int> src)
             }
         }
     }
-    
 }
 int main()
 {
-    cin>>n>>m;
-    pair<int, int> src, dest;
+    cin>> n >> m;
     for(int i = 0; i<n; i++)
     {
         string st;
         cin>>st;
         for(int j = 0; j<m; j++)
         {
-            if(st[j] == '#') maze[i][j] = -1;
+            if(st[j] == '-') maze[i][j] = -1;
             else maze[i][j] = 0;
-            if(st[j]=='A') src = {i, j};
-            if(st[j] == 'B') dest = {i, j};
         }
     }
+    pair<int, int> src, dest;
+    cin >> src.first >> src.second >> dest.first >> dest.second;
     memset(visited, false, sizeof(visited));
     bfs(src);
     if(visited[dest.first][dest.second])
@@ -58,7 +53,7 @@ int main()
     }
     else
     {
-      cout << "NO" << endl;
+        cout << "NO" << endl;
     }
     return 0;
 }
